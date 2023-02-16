@@ -1,0 +1,31 @@
+@import "../../styles/variables";
+
+.button {
+  font-size: $fs-400;
+
+  padding: 0.75em 1.75em;
+  border: none;
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  transition: scale 200ms ease-in;
+
+  box-shadow: $bs;
+  &_primary {
+    color: $clr-primary;
+    background-color: $bkg-clr-primary;
+    &:where(:hover) {
+      background-color: $bkg-clr-accent;
+      scale: (1.1);
+    }
+  }
+  &_secondary {
+    border: 2px solid $clr-accent;
+    color: $clr-accent;
+
+    &:where(:hover) {
+      scale: (1.1);
+    }
+  }
+}
