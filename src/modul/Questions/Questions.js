@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Button from "../../components/Button/Button";
 import { Question } from "../../components/Question/Question";
 import { fetchQuizData } from "../../redux/actions/fetchQuizDataAction";
-import { back, toggleChoice } from "../../redux/reducer/fetchQuizDataReducer";
+import { back } from "../../redux/reducer/fetchQuizDataReducer";
 import "./Questions.scss";
 
 export default function Questions() {
@@ -28,12 +28,8 @@ export default function Questions() {
     return correctQuestion.length;
   }
 
-  function handleToggle(questionId, answerId) {
-    dispatch(toggleChoice({ questionId, answerId }));
-  }
-
   const questionHTML = quizData.map((data, index) => {
-    return <Question key={index} {...data} handleToggle={handleToggle} showResults={showResults} />;
+    return <Question key={index} {...data} showResults={showResults} />;
   });
 
   return (
@@ -47,7 +43,7 @@ export default function Questions() {
       )}
       <div className="questions__container">
         <Button handleClick={checkAnswers} isPrimary={true}>
-          {showResults ? "Play again" : "Check anwsers"}
+          {!showResults ? "Check anwsers" : "Play again"}
         </Button>
         <Button handleClick={() => dispatch(back())} isSecondary={true}>
           Menu

@@ -25,6 +25,7 @@ export default function Menu() {
     }
   }
 
+  // This could be a compontent by itself
   function Select({ name, options, value, onChange }) {
     return (
       <select className="menu__select" name={name} value={value} onChange={onChange}>

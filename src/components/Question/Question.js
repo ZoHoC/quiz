@@ -1,10 +1,14 @@
+import { useDispatch } from "react-redux";
+import { toggleChoice } from "../../redux/reducer/fetchQuizDataReducer";
 import "./Question.scss";
 
-export function Question({ id, question, answers, handleToggle, showResults }) {
+export function Question({ id, question, answers, showResults }) {
+  const dispatch = useDispatch();
+
   // Gets id of clicked anwser and stops updating state after checking anwsers
-  function toggle(anwserId) {
+  function toggle(answerId) {
     if (!showResults) {
-      handleToggle(id, anwserId);
+      dispatch(toggleChoice({ id, answerId }));
     }
   }
 

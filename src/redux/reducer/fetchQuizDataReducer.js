@@ -16,8 +16,8 @@ const fetchQuizDataSlice = createSlice({
       state.isMenu = true;
     },
     toggleChoice: (state, action) => {
-      const { questionId, answerId } = action.payload;
-      const question = state.quizData[questionId];
+      const { id, answerId } = action.payload;
+      const question = state.quizData[id];
       question.answers.forEach(answer => {
         answer.isPressed = false;
       });
