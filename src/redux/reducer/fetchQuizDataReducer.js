@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import checkType from "../../utility/checkType";
 import { fetchQuizData } from "../actions/fetchQuizDataAction";
 
 const initialState = {
   quizData: [],
   isLoading: false,
-  isMenu: true,
   error: null,
 };
 
@@ -12,9 +12,6 @@ const fetchQuizDataSlice = createSlice({
   name: "quiz",
   initialState,
   reducers: {
-    back: state => {
-      state.isMenu = true;
-    },
     toggleChoice: (state, action) => {
       const { id, answerId } = action.payload;
       const question = state.quizData[id];
@@ -29,11 +26,21 @@ const fetchQuizDataSlice = createSlice({
     builder
       .addCase(fetchQuizData.pending, state => {
         state.isLoading = true;
-        state.isMenu = false;
         state.error = null;
       })
       .addCase(fetchQuizData.fulfilled, (state, action) => {
-        state.quizData = action.payload;
+        state.quizData = action.payload.results.map((item, index) => {
+          const { category, type, difficulty, question, correct_answer, incorrect_answers } = item;
+          return {
+            category: decodeURIComponent(category),
+            type: decodeURIComponent(type),
+            difficulty: decodeURIComponent(difficulty),
+            question: decodeURIComponent(question),
+            answers: checkType(type, correct_answer, incorrect_answers),
+            correct_answer: decodeURIComponent(correct_answer),
+            id: index,
+          };
+        });
         state.isLoading = false;
         state.error = null;
       })
@@ -45,4 +52,4 @@ const fetchQuizDataSlice = createSlice({
 });
 
 export default fetchQuizDataSlice.reducer;
-export const { back, toggleChoice } = fetchQuizDataSlice.actions;
+export const { toggleChoice } = fetchQuizDataSlice.actions;

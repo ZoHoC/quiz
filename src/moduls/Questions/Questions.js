@@ -1,40 +1,43 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
+import Loading from "../../components/Loading/Loading";
 import { Question } from "../../components/Question/Question";
 import { fetchQuizData } from "../../redux/actions/fetchQuizDataAction";
-import { back } from "../../redux/reducer/fetchQuizDataReducer";
 import "./Questions.scss";
 
 export default function Questions() {
   const [showResults, setShowResults] = useState(false);
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const quizData = useSelector(state => state.quiz.quizData);
   const { difficultyValue, categoryValue, numberOfQuestions } = useSelector(state => state.formData);
+  const { isLoading } = useSelector(state => state.quiz);
 
   function checkAnswers() {
     if (!showResults) {
       setShowResults(true);
     } else {
+      setShowResults(false);
       dispatch(fetchQuizData({ difficultyValue, categoryValue, numberOfQuestions }));
     }
   }
 
   function correctNumberOfQuestions() {
-    const correctQuestion = quizData.filter(question => {
-      return question.answers.some(answer => answer.isPressed && answer.isCorrect);
-    });
+    const correctQuestion = quizData.filter(question => question.answers.some(answer => answer.isPressed && answer.isCorrect));
     return correctQuestion.length;
   }
 
-  const questionHTML = quizData.map((data, index) => {
-    return <Question key={index} {...data} showResults={showResults} />;
-  });
+  const questionHTML = quizData.map((data, index) => <Question key={index} id={data.id} question={data.question} answers={data.answers} showResults={showResults} />);
 
-  return (
+  return isLoading ? (
+    <Loading />
+  ) : (
     <section className="questions">
-      <h1 className="questions__title">Quiz category</h1>
+      <h1 className="questions__title">Quiz</h1>
       {questionHTML}
       {showResults && (
         <div className="questions__results">
@@ -45,7 +48,7 @@ export default function Questions() {
         <Button handleClick={checkAnswers} isPrimary={true}>
           {!showResults ? "Check anwsers" : "Play again"}
         </Button>
-        <Button handleClick={() => dispatch(back())} isSecondary={true}>
+        <Button handleClick={() => navigate("/quiz")} isSecondary={true}>
           Menu
         </Button>
       </div>

@@ -2,7 +2,6 @@ import "./Button.scss";
 
 export default function Button({ children, isPrimary, isSecondary, ...props }) {
   let buttonClass = "button";
-
   switch (true) {
     case isPrimary:
       buttonClass += " button_primary";

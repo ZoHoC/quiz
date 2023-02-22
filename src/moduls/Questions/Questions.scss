@@ -2,10 +2,12 @@
 
 .questions {
   padding: 20px 0;
+
   &__title {
     text-align: center;
     color: $clr-accent;
   }
+
   &__container {
     max-width: 300px;
     margin: 25px auto 0;
@@ -14,6 +16,7 @@
     align-items: center;
     gap: 25px;
   }
+
   &__results {
     @extend .questions__title;
     font-weight: $fw-bold;

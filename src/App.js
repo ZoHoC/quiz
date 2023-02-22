@@ -1,16 +1,16 @@
-import { useSelector } from "react-redux";
+import { Routes, Route } from "react-router-dom";
 import "./App.scss";
-import Loading from "./components/Loading/Loading";
-import Menu from "./modul/Menu/Menu";
-import Questions from "./modul/Questions/Questions";
+
+import Menu from "./moduls/Menu/Menu";
+import Questions from "./moduls/Questions/Questions";
 
 function App() {
-  const { isMenu, isLoading } = useSelector(state => state.quiz);
   return (
     <div className="App">
-      {isMenu && <Menu />}
-      {isLoading && <Loading />}
-      {!isLoading && !isMenu && <Questions />}
+      <Routes>
+        <Route path="/quiz" element={<Menu />} />
+        <Route path="/questions" element={<Questions />} />
+      </Routes>
     </div>
   );
 }

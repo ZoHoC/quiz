@@ -1,14 +1,17 @@
 @import "../../styles/variables";
+
 .card {
   margin: 0 auto;
   padding: 15px 15px;
   display: flex;
   flex-direction: column;
   gap: 16px;
+
   &__title {
     font-size: $fs-400;
     color: $clr-accent;
   }
+
   &__list {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -18,6 +21,7 @@
 
     border-bottom: 1px solid $clr-grey;
   }
+
   &__answer {
     list-style-type: none;
     text-align: center;
@@ -31,9 +35,11 @@
     &_pressed {
       background-color: $clr-pressed;
     }
+
     &_correct {
       background-color: $clr-correct;
     }
+
     &_false {
       background-color: $clr-false;
     }
@@ -44,6 +50,7 @@
   .card {
     width: 70vw;
     max-width: 1000px;
+
     &__list {
       grid-template-columns: repeat(4, 1fr);
     }

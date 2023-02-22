@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { changeCategory, changeDifficulty, changeNumberOfQuestions } from "../actions/formDataActions";
 
 const initialState = {
   difficultyValue: "",
@@ -12,13 +11,13 @@ const formDataSlice = createSlice({
   initialState,
   reducers: {
     category: (state, action) => {
-      changeCategory(state, action);
+      state.categoryValue = action.payload;
     },
     difficulty: (state, action) => {
-      changeDifficulty(state, action);
+      state.difficultyValue = action.payload;
     },
     number: (state, action) => {
-      changeNumberOfQuestions(state, action);
+      state.numberOfQuestions = action.payload;
     },
   },
 });

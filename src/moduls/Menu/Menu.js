@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchQuizData } from "../../redux/actions/fetchQuizDataAction";
 import { category, difficulty, number } from "../../redux/reducer/formDataReducer";
+import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import PopupError from "../../components/PopupError/PopupError";
 import categoryOptions from "../../utility/categoryOptions";
@@ -12,6 +13,7 @@ export default function Menu() {
   const [showPopup, setShowPopup] = useState(false);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { difficultyValue, categoryValue, numberOfQuestions } = useSelector(state => state.formData);
 
   function handleStartQuiz() {
@@ -22,6 +24,7 @@ export default function Menu() {
       }, 1000);
     } else {
       dispatch(fetchQuizData({ difficultyValue, categoryValue, numberOfQuestions }));
+      navigate("/questions");
     }
   }
 

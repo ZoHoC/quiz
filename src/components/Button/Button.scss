@@ -7,19 +7,21 @@
   border: none;
   border-radius: 10px;
 
+  box-shadow: $bs;
   cursor: pointer;
 
   transition: scale 200ms ease-in;
 
-  box-shadow: $bs;
   &_primary {
     color: $clr-primary;
     background-color: $bkg-clr-primary;
+
     &:where(:hover) {
       background-color: $bkg-clr-accent;
       scale: (1.1);
     }
   }
+
   &_secondary {
     border: 2px solid $clr-accent;
     color: $clr-accent;
